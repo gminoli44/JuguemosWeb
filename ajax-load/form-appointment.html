@@ -1,0 +1,78 @@
+<section class="no-bg">
+  <div class="container" style="max-width: 700px;">
+    <h3 class="bg-theme-colored p-15 mb-0 text-white">Free Seo Analysis</h3>
+    <div class="section-content bg-white p-30">
+      <div class="row">
+        <div class="col-md-12">
+          <form id="appointment_form" name="appointment_form" class="bg-deep for-boxshadow p-30" method="post" action="http://thememascot.net/demo/personal/f/seoservice/j/demo/ajax-load/includes/urltest.php" novalidate="novalidate">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group mb-10">
+                  <label>Name <small>*</small></label>
+                  <input name="form_name" class="form-control" required="" placeholder="Enter Name" aria-required="true" type="text">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group mb-10">
+                  <label>Email <small>*</small></label>
+                  <input name="form_email" class="form-control required email" placeholder="Enter Email" aria-required="true" type="email">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group mb-10">
+                  <label>Phone <small>*</small></label>
+                  <input name="form_phone" class="form-control" placeholder="Enter Phone" aria-required="true" type="tel">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group mb-10">
+                  <label>Company Name <small>*</small></label>
+                  <input name="form_company" class="form-control" placeholder="Enter Comapany Name" aria-required="true" type="text">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group mb-10">
+                  <label>Website <small>*</small></label>
+                  <input name="form_website" class="form-control" placeholder="Url" aria-required="true" type="url">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-0 mt-20">
+              <input name="form_botcheck" class="form-control" value="" type="hidden">
+              <button type="submit" class="btn btn-block btn-theme-colored btn-sm mt-20 pt-10 pb-10 text-uppercase" data-loading-text="Please wait...">Submit</button>
+            </div>
+          </form>
+        </div>
+        <!-- Appointment Form Validation -->
+        <script type="text/javascript">
+          $("#appointment_form").validate({
+            submitHandler: function(form) {
+              var form_btn = $(form).find('button[type="submit"]');
+              var form_result_div = '#form-result';
+              $(form_result_div).remove();
+              form_btn.before('&amp;lt;div id="form-result" class="alert alert-success" role="alert" style="display: none;"&amp;gt;&amp;lt;/div&amp;gt;');
+              var form_btn_old_msg = form_btn.html();
+              form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
+              $(form).ajaxSubmit({
+                dataType:  'json',
+                success: function(data) {
+                  if( data.status == 'true' ) {
+                    $(form).find('.form-control').val('');
+                  }
+                  form_btn.prop('disabled', false).html(form_btn_old_msg);
+                  $(form_result_div).html(data.message).fadeIn('slow');
+                  setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
+                }
+              });
+            }
+          });
+        </script>
+        </div>
+        <script>
+          //reload date and time picker
+          THEMEMASCOT.initialize.TM_datePicker();
+        </script>
+      </div>
+    </div>
+  </div>
+</section>

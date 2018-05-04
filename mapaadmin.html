@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <div>
+    <label for="name">Nombre del Punto</label><input type="text" id="name">
+    <button onclick="addMarker();">Agregar Punto</button></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var lat;
+        var lng;
+        var marker;
+      function initMap() {
+        // Posicion donde aparece el mapa  
+        var popayan = {lat: 2.448132, lng:-76.6169869};
+        //Crea un nuevo mapa
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: popayan
+        });
+          
+        /*var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });*/
+          
+        marker = new google.maps.Marker({
+          position: {lat: 2.448132, lng:-76.6169869},
+          draggable: true,
+          map: map,         //icon:"http://localhost/juguemos/images/location-icon-png-4250.png"
+        });
+        }
+        function addMarker(){  
+            var lat = marker.getPosition().lat();
+            var lng = marker.getPosition().lng();
+            var dataString = 'name='+$('#name').val()+'&lat='+lat+'&lng='+lng;
+            $.ajax({
+                type: "POST",
+                url:"guardarmarker.php",
+                data: dataString,
+                success: function(response){
+                  //  $("#formidadmin")[0].reset();
+                    alert(response);
+                }
+            });
+        }
+        
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeTdhn103KKecYVGF6SxdXXO-cSQOymuw&callback=initMap">
+    </script>
+  </body>
+</html>

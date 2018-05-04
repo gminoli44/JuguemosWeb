@@ -1,0 +1,1 @@
+<META HTTP-EQUIV="REFRESH" CONTENT="0.5;URL=agregar_resultados.php">
